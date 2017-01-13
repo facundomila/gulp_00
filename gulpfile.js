@@ -1,5 +1,4 @@
 var autoprefixer = require('gulp-autoprefixer');
-//var babel = require('babelify');
 var browserify = require('browserify');
 var browserSync = require('browser-sync');
 var clean = require('gulp-clean');
@@ -9,7 +8,6 @@ var minify = require('gulp-minify-css');
 var plumber = require('gulp-plumber');
 var reactify = require('reactify');
 var reload = browserSync.reload;
-//var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var source = require('vinyl-source-stream');
 var sourcemaps = require('gulp-sourcemaps');
@@ -27,12 +25,14 @@ gulp.task('sass', function() {
 });
 
 gulp.task('react', function () {
-    var bundle = browserify('src/app.js').transform(reactify).bundle().on('error', function (error) {
+    var bundle = browserify('index.js').transform(reactify).bundle().on('error', function (error) {
         console.log(error);
         this.emit('end');
     });
 
-    return bundle.pipe(source('app.js')).pipe(gulp.dest('temp/'));
+    return bundle.pipe(source('app.js'))
+        .pipe(gulp.dest('temp/'))
+        .pipe(reload({ stream: true })); // Enviar cambios al navegador;
 });
 
 gulp.task('html',function(){
@@ -42,7 +42,7 @@ gulp.task('html',function(){
 
 gulp.task('watch', function() {
     gulp.watch([
-        'src/sass/*.sass','src/*.js','src/*.html'
+        'src/sass/*.sass','index.js','src/*.html'
     ],[
       'sass','react','html']);
 });
