@@ -48,10 +48,11 @@ gulp.task('watch', function() {
 });
 
 gulp.task('serve', ['sass','react','html'], function() {
-    browserSync({
+    browserSync.init({
         server: {
-            baseDir: ['temp']
-        }
+            baseDir: 'temp'
+        },
+        port: '3030'
     });
     gulp.start('watch');
 });

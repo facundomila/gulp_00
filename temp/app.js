@@ -1,11 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Router = require('react-router');
-var IndexRoute = Router.IndexRoute;
-var browserHistory = Router.browserHistory;
-var Route = Router.Route;
-var Link = Router.Link;
+var Router = require('react-router').Router;
+var IndexRoute = require('react-router').IndexRoute;
+var browserHistory = require('react-router').browserHistory;
+var Route = require('react-router').Route;
+var Link = require('react-router').Link;
+var Lalala = require('./temp/lalala');
 
 /*var Home = require('./src/views/home');
 var AppRouter = require('./router');*/
@@ -17,7 +18,7 @@ var App = React.createClass({displayName: "App",
         return (
             React.createElement("div", null, 
                 React.createElement("ul", null, 
-                    React.createElement("li", null, "Homssse"), 
+                    React.createElement("li", null, React.createElement(Link, {to: "home"}, "Homssse")), 
                     React.createElement("li", null, "About"), 
                     React.createElement("li", null, "Contact")
                 )
@@ -25,11 +26,11 @@ var App = React.createClass({displayName: "App",
         );
     }
 });
-
 module.exports = App;
 
 var Home = React.createClass({displayName: "Home",
-    render() {
+    render: function() {
+        console.log('kajgsdfajd');
         return (
             React.createElement("div", null, 
                 React.createElement("h1", null, "Home...")
@@ -37,11 +38,10 @@ var Home = React.createClass({displayName: "Home",
         );
     }
 });
-
 module.exports = Home;
 
 var About = React.createClass({displayName: "About",
-    render() {
+    render: function() {
         return (
             React.createElement("div", null, 
                 React.createElement("h1", null, "About...")
@@ -49,11 +49,10 @@ var About = React.createClass({displayName: "About",
         );
     }
 });
-
 module.exports = About;
 
 var Contact = React.createClass({displayName: "Contact",
-    render() {
+    render: function() {
         return (
             React.createElement("div", null, 
                 React.createElement("h1", null, "Contact...")
@@ -61,27 +60,26 @@ var Contact = React.createClass({displayName: "Contact",
         );
     }
 });
-
 module.exports = Contact;
 
 var AppRouter = React.createClass({displayName: "AppRouter",
-    render() {
+    render: function() {
         return (
             React.createElement(Router, {history: browserHistory}, 
                 React.createElement(Route, {path: "/", component: App}, 
-                    React.createElement(IndexRoute, {component: Home}), 
-                    React.createElement(Route, {path: "/home.html", component: Home}), 
-                    React.createElement(Route, {path: "/about.html", component: About}), 
-                    React.createElement(Route, {path: "/contact.html", component: Contact})
+                    React.createElement(Route, {path: "home", component: Lalala}), 
+                    React.createElement(Route, {path: "about.html", component: About}), 
+                    React.createElement(Route, {path: "contact", component: Contact})
                 )
             )
         );
     }
 });
+module.exports = AppRouter;
 
 ReactDOM.render(React.createElement(AppRouter, null), document.getElementById('container'));
 
-},{"react":231,"react-dom":47,"react-router":200}],2:[function(require,module,exports){
+},{"./temp/lalala":234,"react":231,"react-dom":47,"react-router":200}],2:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -25395,4 +25393,17 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = warning;
 
 }).call(this,require('_process'))
-},{"_process":45}]},{},[1]);
+},{"_process":45}],234:[function(require,module,exports){
+var React = require('react');
+
+
+var lalala = React.createClass({displayName: "lalala",
+
+    render: function () {
+        return React.createElement("div", null, "lalalalal")
+    }
+});
+
+module.exports = lalala;
+
+},{"react":231}]},{},[1]);
