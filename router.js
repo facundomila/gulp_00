@@ -1,19 +1,23 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Router = require('react-router');
-var IndexRoute = Router.IndexRoute;
-var browserHistory = Router.browserHistory;
-var Route = Router.Route;
-var Link = Router.Link;
+module.exports = (function () {
+    var React = require('react');
+    var Router = require('react-router');
+    var Route = Router.Route;
 
-ReactDOM.render((
-    <Router history = {browserHistory}>
-        <Route path = "/" component = {App}>
-            <IndexRoute component = {Home} />
-            <Route path = "home" component = {Home} />
-            <Route path = "about" component = {About} />
-            <Route path = "contact" component = {Contact} />
-        </Route>
-    </Router>
+    var App = require('./components');
 
-), document.getElementById('app'));
+    var ModuleRouter = function () {
+        this.routes = (
+            <Router>
+                <Route name="app" path="app/" handler={App}/>
+            </Router>
+        );
+    };
+
+    ModuleRouter.prototype.run = function (mountElement) {
+        Router.run(this.routes, function (Root) {
+            React.render(<Root />, mountElement);
+        });
+    };
+
+    return new ModuleRouter();
+})();
