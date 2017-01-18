@@ -49,10 +49,13 @@ gulp.task('watch', function() {
 
 gulp.task('serve', ['sass','react','html'], function() {
     browserSync.init({
-        server: {
+        /*server: {
             baseDir: 'temp'
-        },
-        port: '3030'
+        },*/
+        port: '3030',
+        proxy: {
+            target: 'http://localhost:3000'
+        }
     });
     gulp.start('watch');
 });
@@ -65,7 +68,7 @@ gulp.task('sass_prod', function() {
     return gulp.src('src/sass/style.sass') // Leer un archivo
         .pipe(sass())// Compilar SASS
         .pipe(minify()) // Minificando CSS
-        .pipe(gulp.dest('build/css')) // Guardar archivo
+        .pipe(gulp.dest('build/css'));// Guardar archivo
 });
 
 gulp.task('views', function() {

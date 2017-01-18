@@ -5,6 +5,7 @@ var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 var browserHistory = ReactRouter.browserHistory;
+var Link = ReactRouter.Link;
 
 //TODO: add database
 
@@ -14,14 +15,14 @@ var App = React.createClass({
             <div>
                 <ul>
                     <li>Homssse</li>
-                    <li>About</li>
+                    <li><Link to="/about">About</Link></li>
                     <li>Contact</li>
                 </ul>
+                {this.props.children}
             </div>
         );
     }
 });
-module.exports = App;
 
 var Home = React.createClass({
     render: function() {
@@ -32,7 +33,6 @@ var Home = React.createClass({
         );
     }
 });
-module.exports = Home;
 
 var About = React.createClass({
     render: function() {
@@ -43,7 +43,6 @@ var About = React.createClass({
         );
     }
 });
-module.exports = About;
 
 var Contact = React.createClass({
     render: function() {
@@ -54,14 +53,14 @@ var Contact = React.createClass({
         );
     }
 });
-module.exports = Contact;
 
 ReactDOM.render((
     <Router history={browserHistory}>
         <Route path="/" component={App}>
+            <IndexRoute component={Home}/>
             <Route name="home" path="/home" component={Home}/>
-            <Route name="about" path="about/" handler={About}/>
-            <Route name="contact" path="contact/" handler={Contact}/>
+            <Route name="about" path="/about" component={About}/>
+            <Route name="contact" path="/contact" component={Contact}/>
         </Route>
     </Router>
 ), document.getElementById('container'));

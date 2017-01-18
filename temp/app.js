@@ -6,6 +6,7 @@ var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 var browserHistory = ReactRouter.browserHistory;
+var Link = ReactRouter.Link;
 
 //TODO: add database
 
@@ -15,14 +16,14 @@ var App = React.createClass({displayName: "App",
             React.createElement("div", null, 
                 React.createElement("ul", null, 
                     React.createElement("li", null, "Homssse"), 
-                    React.createElement("li", null, "About"), 
+                    React.createElement("li", null, React.createElement(Link, {to: "/about"}, "About")), 
                     React.createElement("li", null, "Contact")
-                )
+                ), 
+                this.props.children
             )
         );
     }
 });
-module.exports = App;
 
 var Home = React.createClass({displayName: "Home",
     render: function() {
@@ -33,7 +34,6 @@ var Home = React.createClass({displayName: "Home",
         );
     }
 });
-module.exports = Home;
 
 var About = React.createClass({displayName: "About",
     render: function() {
@@ -44,7 +44,6 @@ var About = React.createClass({displayName: "About",
         );
     }
 });
-module.exports = About;
 
 var Contact = React.createClass({displayName: "Contact",
     render: function() {
@@ -55,14 +54,14 @@ var Contact = React.createClass({displayName: "Contact",
         );
     }
 });
-module.exports = Contact;
 
 ReactDOM.render((
     React.createElement(Router, {history: browserHistory}, 
         React.createElement(Route, {path: "/", component: App}, 
+            React.createElement(IndexRoute, {component: Home}), 
             React.createElement(Route, {name: "home", path: "/home", component: Home}), 
-            React.createElement(Route, {name: "about", path: "about/", handler: About}), 
-            React.createElement(Route, {name: "contact", path: "contact/", handler: Contact})
+            React.createElement(Route, {name: "about", path: "/about", component: About}), 
+            React.createElement(Route, {name: "contact", path: "/contact", component: Contact})
         )
     )
 ), document.getElementById('container'));
